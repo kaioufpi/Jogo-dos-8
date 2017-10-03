@@ -3,10 +3,11 @@ import copy as cp
 
 class estado(object):
 	
-	def __init__(self, tabuleiro, pai, altura):
+	def __init__(self, tabuleiro, pai, altura, movimento):
 		self.tabuleiro = tabuleiro
 		self.pai = pai
 		self.altura = altura
+		self.movimento = movimento
 
 	def eh_solucao(self):
 		if self.tabuleiro == [[1, 2, 3], [4, 5, 6], [7, 8, 0]]:
@@ -29,7 +30,7 @@ class estado(object):
 		novo_tab[linha][coluna - 1] = 0
 		novo_tab[linha][coluna] = aux
 		
-		no_filho = estado(novo_tab, self.tabuleiro, self.altura + 1)
+		no_filho = estado(novo_tab, self.tabuleiro, self.altura + 1, 'esquerda')
 		filhos.append(no_filho)
 
 	def filho_dir(self, linha, coluna, filhos):
@@ -38,7 +39,7 @@ class estado(object):
 		novo_tab[linha][coluna + 1] = 0
 		novo_tab[linha][coluna] = aux
 
-		no_filho = estado(novo_tab, self.tabuleiro, self.altura + 1)
+		no_filho = estado(novo_tab, self.tabuleiro, self.altura + 1, 'direita')
 		filhos.append(no_filho)
 
 	def filho_cima(self, linha, coluna, filhos):
@@ -47,7 +48,7 @@ class estado(object):
 		novo_tab[linha - 1][coluna] = 0
 		novo_tab[linha][coluna] = aux
 		
-		no_filho = estado(novo_tab, self.tabuleiro, self.altura + 1)
+		no_filho = estado(novo_tab, self.tabuleiro, self.altura + 1, 'cima')
 		filhos.append(no_filho)
 
 	def filho_baixo(self, linha, coluna, filhos):
@@ -56,7 +57,7 @@ class estado(object):
 		novo_tab[linha + 1][coluna] = 0
 		novo_tab[linha][coluna] = aux
 		
-		no_filho = estado(novo_tab, self.tabuleiro, self.altura + 1)
+		no_filho = estado(novo_tab, self.tabuleiro, self.altura + 1, 'baixo')
 		filhos.append(no_filho)
 
 	def gerar_filhos(self):

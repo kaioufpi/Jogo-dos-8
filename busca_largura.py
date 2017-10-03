@@ -10,11 +10,11 @@ def busca_largura(raiz):
 	while borda:
 		if not(borda[i].tabuleiro in explorado):
 			if borda[i].eh_solucao():
-				print(borda[i].tabuleiro)
+				print(borda[i].tabuleiro, borda[i].movimento)
 				input('Resposta acima')
 				return
 			else:
-				print(borda[i].tabuleiro)
+				print(borda[i].tabuleiro, borda[i].movimento)
 				input('Não é a resposta')
 
 				novos_filhos = borda[i].gerar_filhos()
@@ -25,7 +25,7 @@ def busca_largura(raiz):
 
 borda = deque()
 
-raiz = no_matriz.estado([[1, 2, 3], [4, 5, 6], [0, 7, 8]], None, 0)
+raiz = no_matriz.estado([[1, 2, 3], [4, 5, 6], [0, 7, 8]], None, 0, None)
 busca_largura(raiz)
 
 
