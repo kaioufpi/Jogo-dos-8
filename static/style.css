@@ -1,0 +1,75 @@
+#side_bar{
+	height: 100%;
+	background-color:#56b6a0;
+	width: 200px;
+	margin-left: 50px;
+	float:left;
+}
+
+.titulo{
+	margin:0px;
+	font-size: 25px;
+	color:white;
+	padding-top: 15%;
+	padding-left: 17%;
+}
+.entrada{
+	width: 130px;
+	margin:10px 10%;
+	margin-right: 0px;
+}
+.text {
+	margin:0px;
+	color:white;
+	padding-top: 25%;
+	font-size: 18px;
+	text-align: center;
+}
+.button{
+	padding: 2px;
+	background-color: #008080;
+	color:white;
+}
+.buttons{
+	width: 180px;
+	margin:10px 10px;
+	background-color: #008080;
+	color:white;
+}
+
+#quadro{
+	background-color:#56b6a0;
+	position: relative;
+	width: 600px;
+	height: 600px;
+	float:left;
+	margin-left: 150px;
+	margin-top:20px;
+	padding:7.5px;
+}
+
+#quadro div{
+margin:7.5px;
+height: 180px;
+width: 180px;
+background-color: #008080;
+position: relative;
+float: left;
+}
+
+#quadro p{
+text-align: center;
+font-size: 120px;
+color:white;
+}
+
+#q0{
+	background-color: #5b8d8d;
+}
+
+
+.nome{
+	color:white;
+	margin-left: 20px;
+	margin-top: 10px;
+}
