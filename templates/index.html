@@ -29,7 +29,6 @@
 			<p class="nome">Renato Almeida</p>
 			<p class="nome">Walace Tales</p>
 		</div>
-
 		<div id="quadro">
 			<div id="q1"><p>1</p></div>
 			<div id="q2"><p>2</p></div>
@@ -41,5 +40,35 @@
 			<div id="q8"><p>8</p></div>
 			<div style="background-color: #7ec8b6;" id="q0"></div>
 		</div>
+
+
+
+
 	</body>
+<script type="text/javascript">
+	const KEY_RIGHT = 39, KEY_LEFT = 37;
+	document.onkeypress=function(key){move(key)};
+	var vet = ["q1","q2","q3","q4","q5","q6","q7","q8","q0"]
+	var pos0 = 8;
+	function move (movimento){
+		var tecla = movimento.keyCode; 
+		var branco = document.getElementById("q0")
+		if ( tecla == KEY_RIGHT){
+			swap_left(pos0)
+		}
+		if ( tecla == KEY_LEFT){
+
+		}
+		if ( tecla == KEY_UP){
+
+		}
+		if ( tecla == KEY_DOWN){
+
+		}
+	}
+
+</script>
 </html>
+
+branco.style.left-=195
+			q8.style.left+=195
