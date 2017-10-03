@@ -30,7 +30,7 @@ class estado(object):
 		novo_tab[linha][coluna - 1] = 0
 		novo_tab[linha][coluna] = aux
 		
-		no_filho = estado(novo_tab, self.tabuleiro, self.altura + 1, 'esquerda')
+		no_filho = estado(novo_tab, self, self.altura + 1, 'esquerda')
 		filhos.append(no_filho)
 
 	def filho_dir(self, linha, coluna, filhos):
@@ -39,7 +39,7 @@ class estado(object):
 		novo_tab[linha][coluna + 1] = 0
 		novo_tab[linha][coluna] = aux
 
-		no_filho = estado(novo_tab, self.tabuleiro, self.altura + 1, 'direita')
+		no_filho = estado(novo_tab, self, self.altura + 1, 'direita')
 		filhos.append(no_filho)
 
 	def filho_cima(self, linha, coluna, filhos):
@@ -48,7 +48,7 @@ class estado(object):
 		novo_tab[linha - 1][coluna] = 0
 		novo_tab[linha][coluna] = aux
 		
-		no_filho = estado(novo_tab, self.tabuleiro, self.altura + 1, 'cima')
+		no_filho = estado(novo_tab, self, self.altura + 1, 'cima')
 		filhos.append(no_filho)
 
 	def filho_baixo(self, linha, coluna, filhos):
@@ -57,7 +57,7 @@ class estado(object):
 		novo_tab[linha + 1][coluna] = 0
 		novo_tab[linha][coluna] = aux
 		
-		no_filho = estado(novo_tab, self.tabuleiro, self.altura + 1, 'baixo')
+		no_filho = estado(novo_tab, self, self.altura + 1, 'baixo')
 		filhos.append(no_filho)
 
 	def gerar_filhos(self):
