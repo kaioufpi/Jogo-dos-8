@@ -1,5 +1,5 @@
-from collections import deque
 import copy as cp
+from indices import tab
 
 class estado(object):
 	
@@ -8,6 +8,7 @@ class estado(object):
 		self.pai = pai
 		self.altura = altura
 		self.movimento = movimento
+		self.fh = self.heuristica()
 
 	def eh_solucao(self):
 		if self.tabuleiro == [[1, 2, 3], [4, 5, 6], [7, 8, 0]]:
@@ -22,6 +23,23 @@ class estado(object):
 				break
 			except Exception as e: pass
 		return self.tabuleiro.index(linha), j
+
+	def posicao_na_matriz(self, valor):
+		for i in self.tabuleiro:
+			for j in i:
+				if j == valor:
+					return(self.tabuleiro.index(i), i.index(j))
+
+	def heuristica(self):
+		soma = 0
+
+		for i in range(1,9):
+			x1, y1 = tab[i]
+			x2, y2 = self.posicao_na_matriz(i)
+
+			soma += abs(x1 - x2) + abs(y1-y2)
+
+		return soma
 
 
 	def filho_esq(self, linha, coluna, filhos):
@@ -62,7 +80,7 @@ class estado(object):
 
 	def gerar_filhos(self):
 		linha,coluna = self.posicao_zero()
-		filhos = deque()
+		filhos = []
 
 		if coluna <= 1:
 			self.filho_dir(linha, coluna, filhos)
