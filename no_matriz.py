@@ -10,6 +10,9 @@ class estado(object):
 		self.movimento = movimento
 		self.fh = self.heuristica()
 
+	def a_estrela(self):
+		return self.fh + self.altura
+
 	def eh_solucao(self):
 		if self.tabuleiro == [[1, 2, 3], [4, 5, 6], [7, 8, 0]]:
 			return True
