@@ -12,9 +12,9 @@
 			<p class="text" style="padding-top:10px;">Entrada</p>
 			<p class="text">Embaralhar</p>
 			<form>
-				<input class="entrada" type="text" name="entrada" placeholder="Número de mov.">
-				<button type="submit" class="btn button">✓</button>
+				<input class="entrada" style="float:left;" type="text" id="rand" placeholder="Número de mov.">
 			</form style="padding-bottom: 10px;">
+				<button class="btn button bt" onclick="random()" >✓</button>
 			<p class="text" style="padding-top: 0;">Algoritmos</p>
 			<button type="submit" class="btn buttons">Busca em Largura</button>
 			<br>
@@ -64,7 +64,7 @@
 	</body>
 <script type="text/javascript">
 	const KEY_RIGHT = 39, KEY_LEFT = 37, KEY_UP = 38, KEY_DOWN = 40;
-	document.onkeydown=function(key){move(key)};
+	document.onkeydown=function(key){move(key.keyCode)};
 
 	audio = document.getElementById('audio');
 
@@ -74,7 +74,7 @@
 
 			audio.play();
 
-		var tecla = movimento.keyCode; 
+		var tecla = movimento; 
 		var branco = document.getElementById('q0')
 		if ( tecla === KEY_RIGHT){
 			swap_left(branco)
@@ -158,6 +158,9 @@
 		}
 		for (i = 0; i<9; i++){
 			vet[i] =  "q" + p[i].value
+			if(p[i].value==='0'){
+				pos0=i;
+			}
 		}
 		setDraw();
 	}
@@ -179,6 +182,32 @@
 			}
 			var pos = use+1;
 			q[lugar].setAttribute("class", "q" + pos)
+		}
+	}
+
+
+	function random(){
+		movimentos= document.getElementById("rand");
+		var n=-1;
+		var ale = [37,38,39,40];
+		for(var i = 0; i < movimentos.value; i ++){
+			var antiga_pos=pos0;
+			var mov_anterior=n;
+			n = parseInt(10*Math.random())
+			if (n>3){
+				n -=4;
+			}
+			if (n>3){
+				n -=4;
+			}
+			if (mov_anterior===n){
+				i-=1;
+				continue;
+			}
+			move(ale[n]);
+			if(pos0===antiga_pos){
+				i-=1;
+			}
 		}
 	}
 

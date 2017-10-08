@@ -198,3 +198,10 @@ top:85px;
 
 	left:27.5;
 }
+
+.bt {
+	margin-left:5px;
+	margin-bottom:5px;
+	top:250px;
+	position:absolute;
+}
