@@ -202,12 +202,14 @@
 			}
 			if (mov_anterior===n){
 				i-=1;
-				continue;
 			}
-			move(ale[n]);
-			if(pos0===antiga_pos){
+			else{
+				move(ale[n]);
+				if(pos0===antiga_pos){
 				i-=1;
 			}
+			}
+			
 		}
 	}
 
