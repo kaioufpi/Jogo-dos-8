@@ -9,13 +9,13 @@
 
 	<body style="margin:0px; height: 100vh;">
 		<div id="side_bar">
-			<p class="titulo">Jogo dos 8</p>
+			<p class="text" style="padding-top:10px;">Entrada</p>
 			<p class="text">Embaralhar</p>
 			<form>
 				<input class="entrada" type="text" name="entrada" placeholder="Número de mov.">
 				<button type="submit" class="btn button">✓</button>
-			</form>
-			<p class="text" style="padding-top: 25%;">Algoritmos</p>
+			</form style="padding-bottom: 10px;">
+			<p class="text" style="padding-top: 0;">Algoritmos</p>
 			<button type="submit" class="btn buttons">Busca em Largura</button>
 			<br>
 			<button type="submit" class="btn buttons">Busca em Profundidade</button>
@@ -24,21 +24,35 @@
 			<br>
 			<button type="submit" class="btn buttons">Busca Gulosa</button>
 			<br>
-			<p class="text" style="padding-top: 25%;">Equipe:</p>
+			<p class="text" style="padding-top: 5%;">Equipe:</p>
 			<p class="nome">Kaio Rego</p>
 			<p class="nome">Renato Almeida</p>
 			<p class="nome">Walace Tales</p>
 		</div>
 		<div id="quadro">
-			<div id="q1"><p>1</p></div>
-			<div id="q2"><p>2</p></div>
-			<div id="q3"><p>3</p></div>
-			<div id="q4"><p>4</p></div>
-			<div id="q5"><p>5</p></div>
-			<div id="q6"><p>6</p></div>
-			<div id="q7"><p>7</p></div>
-			<div id="q8"><p>8</p></div>
-			<div style="background-color: #7ec8b6;" id="q0"></div>
+			<div id="q1" class="q1"><p>1</p></div>
+			<div id="q2" class="q2"><p>2</p></div>
+			<div id="q3" class="q3"><p>3</p></div>
+			<div id="q4" class="q4"><p>4</p></div>
+			<div id="q5" class="q5"><p>5</p></div>
+			<div id="q6" class="q6"><p>6</p></div>
+			<div id="q7" class="q7"><p>7</p></div>
+			<div id="q8" class="q8"><p>8</p></div>
+			<div id="q0" class="q0" style="background-color: #7ec8b6;"></div>
+		</div>
+		<div id=quadrado>
+			<form id="entrada" style="margin:0px">
+				<input id="p1" type="text" name="p1">
+				<input id="p2" type="text" name="p2">
+				<input id="p3" type="text" name="p3">
+				<input id="p4" type="text" name="p4">
+				<input id="p5" type="text" name="p5">
+				<input id="p6" type="text" name="p6">
+				<input id="p7" type="text" name="p7">
+				<input id="p8" type="text" name="p8">
+				<input id="p9" type="text" name="p9">
+				<button type="submit" onclick="setValues()" class="btn button retorno">✓</button>
+			</form>
 		</div>
 
 
@@ -46,29 +60,113 @@
 
 	</body>
 <script type="text/javascript">
-	const KEY_RIGHT = 39, KEY_LEFT = 37;
-	document.onkeypress=function(key){move(key)};
+	const KEY_RIGHT = 39, KEY_LEFT = 37, KEY_UP = 38, KEY_DOWN = 40;
+	document.onkeydown=function(key){move(key)};
 	var vet = ["q1","q2","q3","q4","q5","q6","q7","q8","q0"]
 	var pos0 = 8;
 	function move (movimento){
 		var tecla = movimento.keyCode; 
-		var branco = document.getElementById("q0")
-		if ( tecla == KEY_RIGHT){
-			swap_left(pos0)
+		var branco = document.getElementById('q0')
+		if ( tecla === KEY_RIGHT){
+			swap_left(branco)
 		}
-		if ( tecla == KEY_LEFT){
-
+		if ( tecla === KEY_LEFT){
+			swap_right(branco)
 		}
-		if ( tecla == KEY_UP){
-
+		if ( tecla === KEY_UP){
+			swap_down(branco)
 		}
-		if ( tecla == KEY_DOWN){
+		if ( tecla === KEY_DOWN){
+			swap_up(branco)
+		}
+	}
 
+	function swap_left(branco){
+		if(pos0 === 0 || pos0 === 3 || pos0 === 6){
+			return;
+		}
+		var aux = vet[pos0-1];
+		vet[pos0-1]="q0";
+		vet[pos0]=aux;
+		var new_position = branco.getAttribute("class")
+		var swap = document.getElementById(vet[pos0]);
+		var new_position2 = swap.getAttribute("class")
+		branco.setAttribute("class",new_position2);
+		pos0 -= 1;
+		swap.setAttribute("class",new_position);
+	}
+
+	function swap_right(branco){
+		if(pos0 === 2 || pos0 === 5 || pos0 === 8){
+			return;
+		}
+		var aux = vet[pos0+1];
+		vet[pos0+1]="q0";
+		vet[pos0]=aux;
+		var new_position = branco.getAttribute("class")
+		var swap = document.getElementById(vet[pos0]);
+		var new_position2 = swap.getAttribute("class")
+		branco.setAttribute("class",new_position2);
+		pos0 += 1;
+		swap.setAttribute("class",new_position);
+	}
+
+	function swap_up(branco){
+		if(pos0 === 0 || pos0 === 1 || pos0 === 2){
+			return;
+		}
+		var aux = vet[pos0-3];
+		vet[pos0-3]="q0";
+		vet[pos0]=aux;
+		var new_position = branco.getAttribute("class")
+		var swap = document.getElementById(vet[pos0]);
+		var new_position2 = swap.getAttribute("class")
+		branco.setAttribute("class",new_position2);
+		pos0 -= 3;
+		swap.setAttribute("class",new_position);
+	}
+	
+	function swap_down(branco){
+		if(pos0 === 6 || pos0 === 7 || pos0 === 8){
+			return;
+		}
+		var aux = vet[pos0+3];
+		vet[pos0+3]="q0";
+		vet[pos0]=aux;
+		var new_position = branco.getAttribute("class")
+		var swap = document.getElementById(vet[pos0]);
+		var new_position2 = swap.getAttribute("class")
+		branco.setAttribute("class",new_position2);
+		pos0 += 3;
+		swap.setAttribute("class",new_position);
+	}
+
+	function setValues(){
+		var p = [0,0,0,0,0,0,0,0];
+		for (var i = 1; i<10; i++){
+			nome = "p" + i;
+			p[i-1] = document.getElementById(nome)
+		}
+		for (i = 0; i<9; i++){
+			vet[i] =  "q" + p[i].value
+		}
+		setDraw();
+	}
+
+	function setDraw(){
+		alert(vet)
+		var q = [0,0,0,0,0,0,0,0];
+		for (var i = 1; i<10; i++){
+			nome = "q" + i;
+			q[i-1] = document.getElementById(nome)
+		}
+		alert(q)
+		for (i = 0; i<10; i++){
+			alert(q[i].getAttribute("class"))
+			q[i].setAttribute("class", vet[i])
+			alert(q[i].getAttribute("class"))
 		}
 	}
 
 </script>
 </html>
-
-branco.style.left-=195
-			q8.style.left+=195
