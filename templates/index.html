@@ -51,8 +51,8 @@
 				<input id="p7" type="text" name="p7">
 				<input id="p8" type="text" name="p8">
 				<input id="p9" type="text" name="p9">
-				<button type="submit" onclick="setValues()" class="btn button retorno">✓</button>
 			</form>
+				<button  onclick="setValues()" class="btn button retorno">✓</button>
 		</div>
 		<audio id="audio">
     		<source src="/static/nha.mp3" type="audio/mp3" />
@@ -161,19 +161,24 @@
 		}
 		setDraw();
 	}
-
 	function setDraw(){
-		alert(vet)
 		var q = [0,0,0,0,0,0,0,0];
-		for (var i = 1; i<10; i++){
-			nome = "q" + i;
-			q[i-1] = document.getElementById(nome)
+		for (var i = 0; i<9; i++){
+			var nome = "q" + i;
+			q[i]= document.getElementById(nome)
 		}
-		alert(q)
-		for (i = 0; i<10; i++){
-			alert(q[i].getAttribute("class"))
-			q[i].setAttribute("class", vet[i])
-			alert(q[i].getAttribute("class"))
+		for (i = 0; i<9; i++){
+			var lugar=vet[i];
+			lugar = lugar.substring(1,2);
+			lugar = parseInt(lugar);
+			if (i+1===9){
+				var use=-1;
+			}
+			else {
+				var use=i;
+			}
+			var pos = use+1;
+			q[lugar].setAttribute("class", "q" + pos)
 		}
 	}
 
