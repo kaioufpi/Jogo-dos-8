@@ -54,6 +54,9 @@
 				<button type="submit" onclick="setValues()" class="btn button retorno">✓</button>
 			</form>
 		</div>
+		<audio id="audio">
+    		<source src="/static/nha.mp3" type="audio/mp3" />
+		</audio>
 
 
 
@@ -62,9 +65,15 @@
 <script type="text/javascript">
 	const KEY_RIGHT = 39, KEY_LEFT = 37, KEY_UP = 38, KEY_DOWN = 40;
 	document.onkeydown=function(key){move(key)};
+
+	audio = document.getElementById('audio');
+
 	var vet = ["q1","q2","q3","q4","q5","q6","q7","q8","q0"]
 	var pos0 = 8;
 	function move (movimento){
+
+			audio.play();
+
 		var tecla = movimento.keyCode; 
 		var branco = document.getElementById('q0')
 		if ( tecla === KEY_RIGHT){
@@ -92,8 +101,8 @@
 		var swap = document.getElementById(vet[pos0]);
 		var new_position2 = swap.getAttribute("class")
 		branco.setAttribute("class",new_position2);
-		pos0 -= 1;
 		swap.setAttribute("class",new_position);
+		pos0 -= 1;
 	}
 
 	function swap_right(branco){
@@ -107,8 +116,8 @@
 		var swap = document.getElementById(vet[pos0]);
 		var new_position2 = swap.getAttribute("class")
 		branco.setAttribute("class",new_position2);
-		pos0 += 1;
 		swap.setAttribute("class",new_position);
+		pos0 += 1;
 	}
 
 	function swap_up(branco){
@@ -122,8 +131,8 @@
 		var swap = document.getElementById(vet[pos0]);
 		var new_position2 = swap.getAttribute("class")
 		branco.setAttribute("class",new_position2);
-		pos0 -= 3;
 		swap.setAttribute("class",new_position);
+		pos0 -= 3;
 	}
 	
 	function swap_down(branco){
@@ -137,8 +146,8 @@
 		var swap = document.getElementById(vet[pos0]);
 		var new_position2 = swap.getAttribute("class")
 		branco.setAttribute("class",new_position2);
-		pos0 += 3;
 		swap.setAttribute("class",new_position);
+		pos0 += 3;
 	}
 
 	function setValues(){
@@ -167,6 +176,7 @@
 			alert(q[i].getAttribute("class"))
 		}
 	}
+
 
 </script>
 </html>
