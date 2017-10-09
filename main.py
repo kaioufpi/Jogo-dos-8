@@ -20,7 +20,7 @@ def busca_largura(raiz):
         no_atual = borda.popleft()
         if not(no_atual.tabuleiro in explorado):
             if no_atual.eh_solucao():
-                #construir_resposta(no_atual)
+                construir_resposta(no_atual)
                 print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
                 return
             else:
@@ -40,7 +40,7 @@ def busca_heuristica(raiz):
         no_atual = borda.pop(0)
         if not(no_atual.tabuleiro in explorado):
             if no_atual.eh_solucao():
-                #construir_resposta(no_atual)
+                construir_resposta(no_atual)
                 print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
                 return
             else:
@@ -61,7 +61,7 @@ def busca_gulosa(raiz):
         no_atual = borda.pop(0)
         if not(no_atual.tabuleiro in explorado):
             if no_atual.eh_solucao():
-                #construir_resposta(no_atual)
+                construir_resposta(no_atual)
                 print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
                 return
             else:
@@ -80,7 +80,7 @@ def run(vetor, alg):
         inicio = time()
         busca_largura(raiz)
         fim = time()
-        print("Largura: ", fim - inicio, "\n\n")
+        print("\n\nLargura: ", fim - inicio, "\n\n")
 
     if(alg=='2'):
         print("semestarfeito")
@@ -89,11 +89,11 @@ def run(vetor, alg):
         inicio = time()
         busca_heuristica(raiz)
         fim = time()
-        print("Heuristica: ", fim - inicio, "\n\n")
+        print("\n\nHeuristica: ", fim - inicio, "\n\n")
     if(alg=='4'):
         raiz = no_matriz.estado(vetor, None, 0, None)
         inicio = time()
         busca_gulosa(raiz)
         fim = time()
-        print("Gulosa: ", fim - inicio, "\n\n")
+        print("\n\nGulosa: ", fim - inicio, "\n\n")
 
