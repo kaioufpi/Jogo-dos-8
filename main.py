@@ -30,6 +30,43 @@ def busca_largura(raiz):
             explorado.extend(no_atual.tabuleiro)
         i += 1
 
+def busca_profundidade(raiz):
+
+    borda = deque()
+    ultimos = deque()
+    tamanho__da_memoria = 3
+    borda.append(raiz)
+    i = 0
+
+    for i in range(tamanho__da_memoria):
+        no_atual = borda.popleft()
+        if not(no_atual.tabuleiro in ultimos):
+            if no_atual.eh_solucao():
+                construir_resposta(no_atual)
+                print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
+                return
+            else:
+                novos_filhos = no_atual.gerar_filhos()
+                borda.extend(novos_filhos)
+
+            ultimos.append(no_atual.tabuleiro)
+        i += 1
+
+    while borda:
+        no_atual = borda.popleft()
+        if not(no_atual.tabuleiro in ultimos):
+            if no_atual.eh_solucao():
+                #construir_resposta(no_atual)
+                print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
+                return
+            else:
+                novos_filhos = no_atual.gerar_filhos()
+                borda.extend(novos_filhos)
+
+            ultimos.popleft()
+            ultimos.append(no_atual.tabuleiro)
+        i += 1
+
 def busca_heuristica(raiz):
     explorado = []
     borda = []
@@ -73,25 +110,24 @@ def busca_gulosa(raiz):
         i += 1
     
 def run(vetor, alg):
-
+    raiz = no_matriz.estado(vetor, None, 0, None)
 
     if(alg=='1'):
-        raiz = no_matriz.estado(vetor, None, 0, None)
         inicio = time()
         busca_largura(raiz)
         fim = time()
         print("\n\nLargura: ", fim - inicio, "\n\n")
-
     if(alg=='2'):
-        print("semestarfeito")
+        inicio = time()
+        busca_profundidade(raiz)
+        fim = time()
+        print("\n\nProfundidade: ", fim - inicio, "\n\n")
     if(alg=='3'):
-        raiz = no_matriz.estado(vetor, None, 0, None)
         inicio = time()
         busca_heuristica(raiz)
         fim = time()
         print("\n\nHeuristica: ", fim - inicio, "\n\n")
     if(alg=='4'):
-        raiz = no_matriz.estado(vetor, None, 0, None)
         inicio = time()
         busca_gulosa(raiz)
         fim = time()
