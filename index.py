@@ -26,7 +26,7 @@ def resolve():
             coluna=0
             linha+=1
         i=i+3
-    print(vet);
+    print("\nVETOR RECEBIDO: ",vet,"\n\n")
     solucao=main.run(vet,alg)
-    print("\n\n\n\n\n dsadsadsa" + solucao + " dsadsadsa\n\n\n")
-    return render_template('index.html',solucao=solucao)
+    print ("\n\n\nSOLUÇÃO: " + solucao + "\n\n\n")
+    return jsonify({"solucao":solucao})

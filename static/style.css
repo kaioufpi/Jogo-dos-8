@@ -205,3 +205,13 @@ top:85px;
 	top:250px;
 	position:absolute;
 }
+
+.texto{
+	position:absolute;
+	left:1060px;
+	top:580px;
+}
+.texto p{
+	font-size: 20px;
+	color:#008080;
+}

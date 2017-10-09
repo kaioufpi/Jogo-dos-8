@@ -6,7 +6,7 @@ from time import time
 from movimentos import qtMov
 from indices import mapa_movimentos
 
-
+resposta = ''
 def construir_resposta(no):
     
     global resposta
@@ -14,7 +14,7 @@ def construir_resposta(no):
         construir_resposta(no.pai)
     if no.movimento is not None:
         resposta += mapa_movimentos[no.movimento]
-    #print(no.tabuleiro, "Altura: ", no.altura, "\n", ", Heuristica: ", no.fh, ", A*: ", no.a_estrela())
+    print(no.tabuleiro, "Altura: ", no.altura, "\n", ", Heuristica: ", no.fh, ", A*: ", no.a_estrela())
 
 
 def busca_largura(raiz):
@@ -27,7 +27,7 @@ def busca_largura(raiz):
         no_atual = borda.popleft()
         if no_atual.eh_solucao():
             construir_resposta(no_atual)
-            #print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
+            print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
             return
         else:
             novos_filhos = no_atual.gerar_filhos()
@@ -49,7 +49,7 @@ def busca_profundidade(raiz):
         if not(no_atual.tabuleiro in ultimos):
             if no_atual.eh_solucao():
                 construir_resposta(no_atual)
-                #print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
+                print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
                 return
             else:
                 novos_filhos = no_atual.gerar_filhos()
@@ -63,7 +63,7 @@ def busca_profundidade(raiz):
         if not(no_atual.tabuleiro in ultimos):
             if no_atual.eh_solucao():
                 construir_resposta(no_atual)
-                #print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
+                print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
                 return
             else:
                 novos_filhos = no_atual.gerar_filhos()
@@ -83,7 +83,7 @@ def busca_heuristica(raiz):
         no_atual = borda.pop(0)
         if no_atual.eh_solucao():
             construir_resposta(no_atual)
-            #print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
+            print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
             return
         else:
             novos_filhos = no_atual.gerar_filhos()
@@ -103,7 +103,7 @@ def busca_gulosa(raiz):
         no_atual = borda.pop(0)
         if no_atual.eh_solucao():
             construir_resposta(no_atual)
-            #print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
+            print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
             return
         else:
             novos_filhos = no_atual.gerar_filhos()
@@ -116,31 +116,27 @@ def busca_gulosa(raiz):
 def run(vetor, alg):
     raiz = no_matriz.estado(vetor, None, 0, None)
     global resposta
-    reposta = ''
-
+    resposta = ""
+    outra_resposta= ""
     if(alg=='1'):
         inicio = time()
         busca_largura(raiz)
         fim = time()
-        print("\nLargura: ", fim - inicio, "")
+        print("\nLargura: ", fim - inicio, " s")
     if(alg=='2'):
         inicio = time()
         busca_profundidade(raiz)
         fim = time()
-        print("\nProfundidade: ", fim - inicio, "")
+        print("\nProfundidade: ", fim - inicio, " s")
     if(alg=='3'):
         inicio = time()
         busca_heuristica(raiz)
         fim = time()
-        print("\nHeuristica: ", fim - inicio, "")
+        print("\nEstrela: ", fim - inicio, " s")
     if(alg=='4'):
         inicio = time()
         busca_gulosa(raiz)
         fim = time()
-        print("\nGulosa: ", fim - inicio, "")
-
-    print("\n\n\n\n\n" + resposta + "\n\n\n")
+        print("\nGulosa: ", fim - inicio, " s")
     outra_resposta = resposta
     return outra_resposta
-
-resposta = ''

@@ -58,12 +58,18 @@
 		<audio id="audio">
     		<source src="/static/nha.mp3" type="audio/mp3" />
 		</audio>
-
+		<div class="texto">
+			<p>
+				Aperte "n" para solucionar
+			</p>
+		</div>
 
 
 	</body>
 <script type="text/javascript">
-	const KEY_RIGHT = 39, KEY_LEFT = 37, KEY_UP = 38, KEY_DOWN = 40;
+	var pos_solucao=0;
+	var solucao="";
+	const KEY_RIGHT = 39, KEY_LEFT = 37, KEY_UP = 38, KEY_DOWN = 40, NUMPAD0=78;
 	document.onkeydown=function(key){move(key.keyCode)};
 
 	audio = document.getElementById('audio');
@@ -86,6 +92,19 @@
 		}
 		if ( tecla === KEY_DOWN){
 			swap_up(branco)
+		}
+		if ( tecla === NUMPAD0){
+			runsolucao()
+		}
+	}
+
+	function runsolucao(){
+		var donow = ""
+		donow = parseInt(solucao.substring(pos_solucao,pos_solucao+2))
+		move(donow)
+		pos_solucao+=2;
+		if(solucao.length<pos_solucao){
+			alert("NADA A FAZER")
 		}
 	}
 
@@ -218,8 +237,15 @@ function toPython(type){
 		type: 'POST',
 		contentType: 'application/json; charset=utf-8,',
 		data: JSON.stringify(vet + type),
-		dataType: 'JSON'
-	});
+		dataType: 'text',
+		success: function(result) {
+			solucao=""
+			sol=JSON.parse(result)
+			solucao=sol.solucao
+			alert("CAMIHHO DA SOLUÇÃO ENCONTRADO: " + solucao)
+			pos_solucao=0;
+		}
+	})
 }
 
 
