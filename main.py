@@ -45,7 +45,7 @@ def busca_profundidade(raiz):
     i = 0
 
     for i in range(tamanho__da_memoria):
-        no_atual = borda.popleft()
+        no_atual = borda.pop()
         if not(no_atual.tabuleiro in ultimos):
             if no_atual.eh_solucao():
                 construir_resposta(no_atual)
@@ -59,7 +59,7 @@ def busca_profundidade(raiz):
         i += 1
 
     while borda:
-        no_atual = borda.popleft()
+        no_atual = borda.pop()
         if not(no_atual.tabuleiro in ultimos):
             if no_atual.eh_solucao():
                 construir_resposta(no_atual)
@@ -140,6 +140,7 @@ def run(vetor, alg):
         print("\nGulosa: ", fim - inicio, "")
 
     print("\n\n\n\n\n" + resposta + "\n\n\n")
-    return reposta
+    outra_resposta = resposta
+    return outra_resposta
 
 resposta = ''
