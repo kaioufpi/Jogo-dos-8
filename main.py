@@ -116,30 +116,30 @@ def busca_gulosa(raiz):
 def run(vetor, alg):
     raiz = no_matriz.estado(vetor, None, 0, None)
     global resposta
+    reposta = ''
 
     if(alg=='1'):
         inicio = time()
         busca_largura(raiz)
         fim = time()
         print("\nLargura: ", fim - inicio, "")
-        print("Resposta: ", resposta)
     if(alg=='2'):
         inicio = time()
         busca_profundidade(raiz)
         fim = time()
         print("\nProfundidade: ", fim - inicio, "")
-        print("Resposta: ", resposta)
     if(alg=='3'):
         inicio = time()
         busca_heuristica(raiz)
         fim = time()
         print("\nHeuristica: ", fim - inicio, "")
-        print("Resposta: ", resposta)
     if(alg=='4'):
         inicio = time()
         busca_gulosa(raiz)
         fim = time()
         print("\nGulosa: ", fim - inicio, "")
-        print("Resposta: ", resposta)
+
+    print("\n\n\n\n\n" + resposta + "\n\n\n")
+    return reposta
 
 resposta = ''

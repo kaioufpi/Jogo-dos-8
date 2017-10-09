@@ -27,5 +27,6 @@ def resolve():
             linha+=1
         i=i+3
     print(vet);
-    main.run(vet,alg)
-    return make_response("",200)
+    solucao=main.run(vet,alg)
+    print("\n\n\n\n\n dsadsadsa" + solucao + " dsadsadsa\n\n\n")
+    return render_template('index.html',solucao=solucao)
