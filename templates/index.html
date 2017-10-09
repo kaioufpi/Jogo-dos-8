@@ -5,6 +5,7 @@
 		<link rel="stylesheet" href="/static/style.css">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>	
 	</head>
 
 	<body style="margin:0px; height: 100vh;">
@@ -16,13 +17,13 @@
 			</form style="padding-bottom: 10px;">
 				<button class="btn button bt" onclick="random()" >✓</button>
 			<p class="text" style="padding-top: 0;">Algoritmos</p>
-			<button type="submit" class="btn buttons">Busca em Largura</button>
+			<button type="submit" onclick="toPython('1')" class="btn buttons">Busca em Largura</button>
 			<br>
-			<button type="submit" class="btn buttons">Busca em Profundidade</button>
+			<button type="submit" onclick="toPython('2')" class="btn buttons">Busca em Profundidade</button>
 			<br>
-			<button type="submit" class="btn buttons">Busca Estrela</button>
+			<button type="submit" onclick="toPython('3')" class="btn buttons">Busca Estrela</button>
 			<br>
-			<button type="submit" class="btn buttons">Busca Gulosa</button>
+			<button type="submit" onclick="toPython('4')" class="btn buttons">Busca Gulosa</button>
 			<br>
 			<p class="text" style="padding-top: 5%;">Equipe:</p>
 			<p class="nome">Kaio Rego</p>
@@ -71,7 +72,6 @@
 	var vet = ["q1","q2","q3","q4","q5","q6","q7","q8","q0"]
 	var pos0 = 8;
 	function move (movimento){
-
 			audio.play();
 
 		var tecla = movimento; 
@@ -212,6 +212,16 @@
 			
 		}
 	}
+
+function toPython(type){
+	$.ajax({
+		url: "/resolve",
+		type: 'POST',
+		contentType: 'application/json; charset=utf-8,',
+		data: JSON.stringify(vet + type),
+		dataType: 'JSON'
+	});
+}
 
 
 </script>
