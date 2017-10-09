@@ -3,7 +3,7 @@ import no_matriz
 from indices import tab
 from operator import attrgetter as getatrb
 from time import time
-
+from movimentos import qtMov
 def construir_resposta(no):
     if(no.pai is not None):
         construir_resposta(no.pai)
@@ -96,6 +96,4 @@ def run(vetor, alg):
         busca_gulosa(raiz)
         fim = time()
         print("Gulosa: ", fim - inicio, "\n\n")
-
-
 
