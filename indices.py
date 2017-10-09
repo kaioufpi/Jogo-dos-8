@@ -9,3 +9,10 @@ tab = {
 	8:(2,1),
 	0:(2,2)
 }
+
+mapa_movimentos = {
+	'esquerda': '39',
+	'cima': '40',
+	'direita': '37',
+	'baixo': '38'
+}

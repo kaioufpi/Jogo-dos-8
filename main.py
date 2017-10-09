@@ -4,10 +4,17 @@ from indices import tab
 from operator import attrgetter as getatrb
 from time import time
 from movimentos import qtMov
+from indices import mapa_movimentos
+
+
 def construir_resposta(no):
-    if(no.pai is not None):
+    
+    global resposta
+    if no.pai is not None:
         construir_resposta(no.pai)
-    print(no.tabuleiro, "Altura: ", no.altura, "\n", ", Heuristica: ", no.fh, ", A*: ", no.a_estrela())
+    if no.movimento is not None:
+        resposta += mapa_movimentos[no.movimento]
+    #print(no.tabuleiro, "Altura: ", no.altura, "\n", ", Heuristica: ", no.fh, ", A*: ", no.a_estrela())
 
 
 def busca_largura(raiz):
@@ -18,16 +25,15 @@ def busca_largura(raiz):
     i = 0
     while borda:
         no_atual = borda.popleft()
-        if not(no_atual.tabuleiro in explorado):
-            if no_atual.eh_solucao():
-                construir_resposta(no_atual)
-                print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
-                return
-            else:
-                novos_filhos = no_atual.gerar_filhos()
-                borda.extend(novos_filhos)
+        if no_atual.eh_solucao():
+            construir_resposta(no_atual)
+            #print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
+            return
+        else:
+            novos_filhos = no_atual.gerar_filhos()
+            borda.extend(novos_filhos)
 
-            explorado.extend(no_atual.tabuleiro)
+        explorado.extend(no_atual.tabuleiro)
         i += 1
 
 def busca_profundidade(raiz):
@@ -43,7 +49,7 @@ def busca_profundidade(raiz):
         if not(no_atual.tabuleiro in ultimos):
             if no_atual.eh_solucao():
                 construir_resposta(no_atual)
-                print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
+                #print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
                 return
             else:
                 novos_filhos = no_atual.gerar_filhos()
@@ -56,8 +62,8 @@ def busca_profundidade(raiz):
         no_atual = borda.popleft()
         if not(no_atual.tabuleiro in ultimos):
             if no_atual.eh_solucao():
-                #construir_resposta(no_atual)
-                print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
+                construir_resposta(no_atual)
+                #print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
                 return
             else:
                 novos_filhos = no_atual.gerar_filhos()
@@ -75,17 +81,16 @@ def busca_heuristica(raiz):
     borda.append(raiz)
     while borda:
         no_atual = borda.pop(0)
-        if not(no_atual.tabuleiro in explorado):
-            if no_atual.eh_solucao():
-                construir_resposta(no_atual)
-                print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
-                return
-            else:
-                novos_filhos = no_atual.gerar_filhos()
-                borda.extend(novos_filhos)
-                borda.sort(key = lambda a : a.a_estrela())
+        if no_atual.eh_solucao():
+            construir_resposta(no_atual)
+            #print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
+            return
+        else:
+            novos_filhos = no_atual.gerar_filhos()
+            borda.extend(novos_filhos)
+            borda.sort(key = lambda a : a.a_estrela())
 
-            explorado.extend(no_atual.tabuleiro)
+        explorado.extend(no_atual.tabuleiro)
         i += 1
 
 def busca_gulosa(raiz):
@@ -96,40 +101,45 @@ def busca_gulosa(raiz):
     borda.append(raiz)
     while borda:
         no_atual = borda.pop(0)
-        if not(no_atual.tabuleiro in explorado):
-            if no_atual.eh_solucao():
-                construir_resposta(no_atual)
-                print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
-                return
-            else:
-                novos_filhos = no_atual.gerar_filhos()
-                borda.extend(novos_filhos)
-                borda.sort(key = getatrb('fh'))
+        if no_atual.eh_solucao():
+            construir_resposta(no_atual)
+            #print("Posição do nó na fronteira: ", i , "Tamanho da borda: ", len(borda), "Altura: ", no_atual.altura)
+            return
+        else:
+            novos_filhos = no_atual.gerar_filhos()
+            borda.extend(novos_filhos)
+            borda.sort(key = getatrb('fh'))
 
-            explorado.extend(no_atual.tabuleiro)
+        explorado.extend(no_atual.tabuleiro)
         i += 1
     
 def run(vetor, alg):
     raiz = no_matriz.estado(vetor, None, 0, None)
+    global resposta
 
     if(alg=='1'):
         inicio = time()
         busca_largura(raiz)
         fim = time()
-        print("\n\nLargura: ", fim - inicio, "\n\n")
+        print("\nLargura: ", fim - inicio, "")
+        print("Resposta: ", resposta)
     if(alg=='2'):
         inicio = time()
         busca_profundidade(raiz)
         fim = time()
-        print("\n\nProfundidade: ", fim - inicio, "\n\n")
+        print("\nProfundidade: ", fim - inicio, "")
+        print("Resposta: ", resposta)
     if(alg=='3'):
         inicio = time()
         busca_heuristica(raiz)
         fim = time()
-        print("\n\nHeuristica: ", fim - inicio, "\n\n")
+        print("\nHeuristica: ", fim - inicio, "")
+        print("Resposta: ", resposta)
     if(alg=='4'):
         inicio = time()
         busca_gulosa(raiz)
         fim = time()
-        print("\n\nGulosa: ", fim - inicio, "\n\n")
+        print("\nGulosa: ", fim - inicio, "")
+        print("Resposta: ", resposta)
 
+resposta = ''
